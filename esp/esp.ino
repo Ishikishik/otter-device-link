@@ -3,296 +3,8 @@
 
 MyLGFX lcd;
 
-// ===== QR配列をここに貼る =====
-const uint8_t qr[29][29] = {
-  {1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
-  {1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1},
-  {1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1},
-  {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1},
-  {1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1},
-  {1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1},
-  {1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1},
-  {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-  {1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0},
-  {1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0},
-  {0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0},
-  {0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0},
-  {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1},
-  {1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1},
-  {0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0},
-  {0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 1},
-  {0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0},
-  {1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
-  {1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1},
-  {1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0},
-  {1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1},
-  {0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0},
-  {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0},
-  {1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1},
-  {1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0},
-  {1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1},
-  {1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0},
-  {1, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1},
-  {1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0},
-};
-
-
-// ===== 設定 =====
-const int DOT_SIZE = 3;
-const int SENSOR_PIN = 5;   // 受光部のADCピンに合わせて変更
-const int T_MS = 200;       // Web側スライダーTと合わせる
-
-const uint32_t BG_COLOR   = 0x000000U;
-const uint32_t MAIN_COLOR = 0x00FF00U;
-
-// ===== 受信結果 =====
-String receivedSsid = "";
-String receivedPass = "";
-String currentBits = "";
-
-enum ReceiveMode {
-  WAIT_START,
-  READ_SSID,
-  READ_PASSWORD,
-  FINISHED
-};
-
-ReceiveMode mode = WAIT_START;
-
-// ===== 光の状態検出用 =====
-bool lastLight = false;
-unsigned long lastEdgeTime = 0;
-unsigned long greenDuration = 0;
-unsigned long blackDuration = 0;
-
-// しきい値。まずはSerialで値を見て調整
-int threshold = 2000;
-
-// --------------------------------
-// 画面描画
-// --------------------------------
-
-void drawQR() {
-  int qrSize = sizeof(qr) / sizeof(qr[0]);
-
-  int offsetX = 0;
-  int offsetY = 0;
-
-  for (int y = 0; y < qrSize; y++) {
-    for (int x = 0; x < qrSize; x++) {
-      if (qr[y][x]) {
-        lcd.fillRect(
-          offsetX + x * DOT_SIZE,
-          offsetY + y * DOT_SIZE,
-          DOT_SIZE,
-          DOT_SIZE,
-          MAIN_COLOR
-        );
-      }
-    }
-  }
-}
-
-void drawStaticScreen() {
-  lcd.fillScreen(BG_COLOR);
-
-  // 左上にQR
-  drawQR();
-
-  // 右側に説明
-  lcd.setTextColor(MAIN_COLOR, BG_COLOR);
-  lcd.setTextSize(1);
-
-  int x = 115;
-  int y = 8;
-
-  lcd.setCursor(x, y);
-  lcd.println("Otter Device Link");
-
-  y += 20;
-  lcd.setCursor(x, y);
-  lcd.println("1. Scan QR");
-
-  y += 16;
-  lcd.setCursor(x, y);
-  lcd.println("2. Press sensor");
-
-  y += 16;
-  lcd.setCursor(x, y);
-  lcd.println("   to upper half");
-
-  y += 16;
-  lcd.setCursor(x, y);
-  lcd.println("   of phone screen");
-
-  y += 16;
-  lcd.setCursor(x, y);
-  lcd.println("3. Input SSID/PASS");
-
-  y += 16;
-  lcd.setCursor(x, y);
-  lcd.println("4. Push START");
-
-  // 下側に受信欄
-  lcd.drawRect(0, 135, 320, 105, MAIN_COLOR);
-
-  lcd.setCursor(8, 145);
-  lcd.println("Received data");
-
-  lcd.setCursor(8, 165);
-  lcd.println("SSID:");
-
-  lcd.setCursor(8, 195);
-  lcd.println("PASS:");
-}
-
-void updateReceivedArea() {
-  // 表示欄だけ黒で消す
-  lcd.fillRect(55, 160, 260, 70, BG_COLOR);
-
-  lcd.setTextColor(MAIN_COLOR, BG_COLOR);
-  lcd.setTextSize(1);
-
-  lcd.setCursor(55, 165);
-  lcd.print(receivedSsid);
-
-  lcd.setCursor(55, 195);
-  lcd.print(receivedPass);
-
-  lcd.setCursor(8, 220);
-  lcd.print("bits:");
-  lcd.print(currentBits);
-  lcd.print("        ");
-}
-
-// --------------------------------
-// 受信デコード
-// --------------------------------
-
-bool nearUnit(int value, int target) {
-  // Tの何倍かをざっくり判定
-  // 許容幅は広め。あとで調整してください。
-  return abs(value - target) <= 1;
-}
-
-int toUnit(unsigned long durationMs) {
-  return (durationMs + T_MS / 2) / T_MS;
-}
-
-void resetReceive() {
-  receivedSsid = "";
-  receivedPass = "";
-  currentBits = "";
-  mode = WAIT_START;
-  updateReceivedArea();
-}
-
-void addBit(int bit) {
-  currentBits += bit ? "1" : "0";
-
-  // 8bitたまったら1文字に変換
-  if (currentBits.length() >= 8) {
-    int code = 0;
-
-    for (int i = 0; i < 8; i++) {
-      code <<= 1;
-      if (currentBits[i] == '1') {
-        code |= 1;
-      }
-    }
-
-    // UTF-8 1バイト、つまりASCIIだけ採用
-    if (code <= 0x7F) {
-      if (mode == READ_SSID) {
-        receivedSsid += char(code);
-      } else if (mode == READ_PASSWORD) {
-        receivedPass += char(code);
-      }
-    }
-
-    currentBits = "";
-    updateReceivedArea();
-  }
-}
-
-void handlePulse(unsigned long gMs, unsigned long bMs) {
-  int g = toUnit(gMs);
-  int b = toUnit(bMs);
-
-  Serial.print("G=");
-  Serial.print(g);
-  Serial.print(" B=");
-  Serial.println(b);
-
-  // 開始信号の後半部分っぽいものを見る
-  // 今回は簡易版として G4 B1 を開始後の区切りとして使う
-  if (mode == WAIT_START) {
-    if (nearUnit(g, 4) && nearUnit(b, 1)) {
-      mode = READ_SSID;
-      receivedSsid = "";
-      receivedPass = "";
-      currentBits = "";
-      updateReceivedArea();
-    }
-    return;
-  }
-
-  // G4 B1 は password header または end
-  if (nearUnit(g, 4) && nearUnit(b, 1)) {
-    if (mode == READ_SSID) {
-      mode = READ_PASSWORD;
-      currentBits = "";
-    } else if (mode == READ_PASSWORD) {
-      mode = FINISHED;
-      currentBits = "";
-    }
-
-    updateReceivedArea();
-    return;
-  }
-
-  // 0: green T, black T
-  if (nearUnit(g, 1) && nearUnit(b, 1)) {
-    addBit(0);
-    return;
-  }
-
-  // 1: green T, black 3T
-  if (nearUnit(g, 1) && nearUnit(b, 3)) {
-    addBit(1);
-    return;
-  }
-}
-
-void readSensor() {
-  int value = analogRead(SENSOR_PIN);
-  bool light = value > threshold;
-
-  unsigned long now = millis();
-
-  // 光状態が変化した瞬間だけ処理
-  if (light != lastLight) {
-    unsigned long duration = now - lastEdgeTime;
-
-    if (lastLight) {
-      // 直前まで光っていた → green時間
-      greenDuration = duration;
-    } else {
-      // 直前まで暗かった → black時間
-      blackDuration = duration;
-
-      // greenとblackが1セットそろったので判定
-      handlePulse(greenDuration, blackDuration);
-    }
-
-    lastEdgeTime = now;
-    lastLight = light;
-  }
-}
-
-// --------------------------------
-// setup / loop
-// --------------------------------
+const int SENSOR_PIN = 4;      // 受光部をつないだADCピンに変更
+const int THRESHOLD = 10;    // 明るい/暗い判定のしきい値
 
 void setup() {
   Serial.begin(115200);
@@ -301,13 +13,35 @@ void setup() {
   lcd.setRotation(3);
   lcd.setBrightness(128);
 
-  drawStaticScreen();
-  updateReceivedArea();
+  lcd.fillScreen(0x000000U);
+  lcd.setTextColor(0x00FF00U, 0x000000U);
+  lcd.setTextSize(2);
 
-  lastLight = analogRead(SENSOR_PIN) > threshold;
-  lastEdgeTime = millis();
+  lcd.setCursor(10, 10);
+  lcd.println("Light Sensor Test");
 }
 
 void loop() {
-  readSensor();
+  int value = analogRead(SENSOR_PIN);
+  bool isLight = value > THRESHOLD;
+
+  Serial.println(value);
+
+  // 表示更新部分だけ消す
+  lcd.fillRect(0, 50, 320, 120, 0x000000U);
+
+  lcd.setCursor(10, 60);
+  lcd.print("ADC: ");
+  lcd.println(value);
+
+  lcd.setCursor(10, 100);
+  lcd.print("State: ");
+  lcd.println(isLight ? "LIGHT" : "DARK");
+
+  // 簡易バー表示
+  int barWidth = map(value, 0, 4095, 0, 300);
+  lcd.drawRect(10, 145, 300, 20, 0x00FF00U);
+  lcd.fillRect(10, 145, barWidth, 20, 0x00FF00U);
+
+  delay(50);
 }
