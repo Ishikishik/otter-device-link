@@ -1,3 +1,6 @@
+//QRcodeを書いてみる。
+
+
 #include <LovyanGFX.hpp>
 #include "lgfxesp32c3.hpp"
 
