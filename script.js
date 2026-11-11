@@ -9,6 +9,7 @@ const stopButton = document.getElementById("stop-button");
 let T = Number(tSlider.value);
 let running = false;
 let lastToggle = 0;
+let wait = 0;         // 今出している色を出し続ける時間 [ms]
 
 // 再生用
 let pulses = [];
@@ -32,6 +33,7 @@ startButton.addEventListener("click", () => {
 
   running = true;
   lastToggle = 0;
+  wait = 0;
 
   requestAnimationFrame(loop);
 });
@@ -147,8 +149,10 @@ function loop(timestamp) {
 
   const pulse = pulses[pulseIndex];
 
-  if (timestamp - lastToggle >= pulse.duration) {
+  // 今の色を wait [ms] 出し終えたら次の色に切り替える
+  if (timestamp - lastToggle >= wait) {
     flashArea.style.backgroundColor = pulse.color;
+    wait = pulse.duration;
 
     lastToggle = timestamp;
     pulseIndex++;
