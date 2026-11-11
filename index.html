@@ -72,15 +72,15 @@
     <input id="password" type="text" placeholder="Wi-Fi password" />
 
     <label>
-      T: <span id="t-value">200</span> ms
+      T: <span id="t-value">100</span> ms
     </label>
 
     <input
       id="t-slider"
       type="range"
-      min="5"
+      min="30"
       max="1000"
-      value="200"
+      value="100"
       step="5"
     />
 
@@ -89,6 +89,9 @@
 
     <div class="notice">
       UTF-8の1バイト文字にのみ対応しています。<br><br>
+
+      T は小さいほど速く送れますが、読み取りに失敗しやすくなります。
+      受け取れなかったら T を大きくしてください(デバイス側は T を自動で合わせます)。<br><br>
 
       WebサイトにSSID・パスワードを入力することに抵抗がある方は、
       ソースコードをダウンロードしてローカル環境で実行してください。<br><br>
